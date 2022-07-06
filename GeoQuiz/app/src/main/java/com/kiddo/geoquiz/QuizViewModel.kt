@@ -15,15 +15,14 @@ class QuizViewModel : ViewModel() {
         Log.d(TAG,"ViewModel instance about to be destroyed")
     }
     private val questionBank = listOf(
-        Question(R.string.question_australia, true),
-        Question(R.string.question_africa, true),
-        Question(R.string.question_americas,true),
-        Question(R.string.question_asia, true),
-        Question(R.string.question_oceans, true)
+        Question(R.string.question_australia, true, isCheat = false),
+        Question(R.string.question_africa, true, isCheat = false),
+        Question(R.string.question_americas,true, isCheat = false),
+        Question(R.string.question_asia, true, isCheat = false),
+        Question(R.string.question_oceans, true, isCheat = false)
     )
 
     var currentIndex = 0
-    var isCheater = false
 
     val currentQuestionAnswer: Boolean
         get() = questionBank[currentIndex].answer
@@ -31,7 +30,22 @@ class QuizViewModel : ViewModel() {
     val currentQuestionText: Int
         get() = questionBank[currentIndex].textResId
 
+    val currentQuestionIsCheat: Boolean
+        get() = questionBank[currentIndex].isCheat
+
     fun moveToNext(){
        currentIndex = (currentIndex + 1) % questionBank.size
+    }
+
+    fun moveToPre(){
+        if(currentIndex == 0){
+            currentIndex = questionBank.size - 1
+        }else{
+            currentIndex--
+        }
+    }
+
+    fun checkCheater(){
+        questionBank[currentIndex].isCheat = true
     }
 }

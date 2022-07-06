@@ -38,7 +38,14 @@
         android:layout_marginTop="24dp"
         android:layout_gravity="bottom|center_horizontal"
         android:text="@string/cheat_button"/>
-
+    <Button
+        android:id="@+id/pre_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:text="@string/pre_button"
+        android:drawableLeft="@drawable/ic_baseline_chevron_left_24"
+        android:drawablePadding="4dp"/>
     <Button
         android:id="@+id/next_button"
         android:layout_width="wrap_content"

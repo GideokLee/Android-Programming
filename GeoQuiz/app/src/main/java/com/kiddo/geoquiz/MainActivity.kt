@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var nextButton : Button
     private lateinit var questionTextView: TextView
     private lateinit var cheatButton: Button
+    private lateinit var preButton: Button
+
     private val quizViewModel : QuizViewModel by lazy{
         ViewModelProvider(this).get(QuizViewModel::class.java)
     }
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         nextButton = findViewById(R.id.next_button)
         questionTextView = findViewById(R.id.question_text_view)
         cheatButton = findViewById(R.id.cheat_button)
+        preButton = findViewById(R.id.pre_button)
 
         cheatButton.setOnClickListener{
             val answerIsTrue = quizViewModel.currentQuestionAnswer
@@ -47,6 +50,11 @@ class MainActivity : AppCompatActivity() {
         }
         nextButton.setOnClickListener{
             quizViewModel.moveToNext()
+            updateQuestion()
+        }
+
+        preButton.setOnClickListener{
+            quizViewModel.moveToPre()
             updateQuestion()
         }
 
@@ -69,7 +77,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         if(requestCode == REQUEST_CODE_CHEAT){
-            quizViewModel.isCheater = data?.getBooleanExtra(EXTRA_ANSWER_SHOWN, false) ?: false
+            val isCheat = data?.getBooleanExtra(EXTRA_ANSWER_SHOWN, false) ?: false
+            if(isCheat){
+                quizViewModel.checkCheater()
+            }
         }
 
     }
@@ -83,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         val correctAnswer = quizViewModel.currentQuestionAnswer
 
         val messageResId = when {
-            quizViewModel.isCheater -> R.string.judgement_toast
+            quizViewModel.currentQuestionIsCheat -> R.string.judgement_toast
             userAnswer == correctAnswer -> R.string.correct_toast
             else -> R.string.incorrect_toast
         }

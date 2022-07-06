@@ -10,7 +10,7 @@
     <string name="correct_toast">정답!</string>
     <string name="incorrect_toast">틀렸음!</string>
     <string name="next_button">Next</string>
-    
+    <string name="pre_button">Pre</string>
     <string name="warning_text">정말로 답을 보겠습니까?</string>
     <string name="show_answer_button">정답 보기</string>
     <string name="cheat_button">커닝하기!</string>
